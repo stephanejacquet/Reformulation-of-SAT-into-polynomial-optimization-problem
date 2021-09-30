@@ -1,0 +1,24 @@
+#!/bin/bash
+
+
+cd ./CNFToSolver
+make
+#./hello easy_unsatisfiable.cnf
+./hello uf20-0151.cnf #Il est intéressant de regarder les 099 et 0710
+
+cp simple.dat ../admb/examples/admb/simple/simple.dat
+mv problem_name.txt ../SolverToCNF
+
+cd ../admb/examples/admb/simple
+../../../admb simple.tpl
+./simple
+
+cat ./simple.par
+tail -1 simple.par >> resultat.txt
+
+mv resultat.txt ../../../../SolverToCNF
+cd ../../../../SolverToCNF
+make
+./evaluate_cnf uf20-0151.cnf resultat.txt
+
+
